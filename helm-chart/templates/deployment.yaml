@@ -17,6 +17,8 @@ spec:
 {{- if .Values.rbac.install }}
       serviceAccountName: acs-engine-autoscaler
 {{- end }}
+      nodeSelector: 
+        beta.kubernetes.io/os: linux
       containers:
       - name: {{ template "fullname" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
