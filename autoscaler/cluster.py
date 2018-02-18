@@ -35,7 +35,7 @@ class Cluster(object):
                  kubeconfig_private_key, client_private_key, ca_private_key,
                  etcd_client_private_key, etcd_server_private_key,
                  instance_init_time, resource_group, notifier, ignore_pools,
-                 acs_deployment='azuredeploy',
+                 acs_deployment='azuredeploy', ## make sure you have a deployment with the default acs-engine named "azuredeploy"
                  scale_up=True, maintainance=True,
                  over_provision=5, dry_run=False):
 
