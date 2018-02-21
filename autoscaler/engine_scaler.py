@@ -143,7 +143,7 @@ class EngineScaler(Scaler):
                     if max_nodes_to_drain == 0:
                         state = ClusterNodeState.SPARE_AGENT
 
-                logger.info("node: %-*s state: %s" % (75, node, state))
+                logger.info("node: %-*s state: %s" % (30, node, state))
 
                 # state machine & why doesnt python have case?
                 if state in (ClusterNodeState.POD_PENDING, ClusterNodeState.BUSY,
