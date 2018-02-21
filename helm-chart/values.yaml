@@ -14,8 +14,8 @@ acsenginecluster:
   kubeconfigprivatekey: 
   clientprivatekey: 
   caprivatekey:
-  etcdpeerprivatekey0:
   ## Etcd private keys are needed for acs-engine >= 0.12.0 
+  #etcdpeerprivatekey0:
   #etcdclientprivateKey: 
   #etcdserverprivateKey: 
 
