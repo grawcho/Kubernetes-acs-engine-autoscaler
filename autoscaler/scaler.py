@@ -100,7 +100,12 @@ class Scaler(object):
             state = ClusterNodeState.GRACE_PERIOD
         elif under_utilized and (busy_list or not node.unschedulable):
             if drainable:
-                state = ClusterNodeState.UNDER_UTILIZED_DRAINABLE
+                if node.unschedulable:
+                    state = ClusterNodeState.IDLE_UNSCHEDULABLE
+                    logger.info('node %s in drainable and scheduling is disabled',node)
+                    logger.info('node pods: {}'.format(node_pods))
+                else:
+                    state = ClusterNodeState.UNDER_UTILIZED_DRAINABLE
             else:
                 state = ClusterNodeState.UNDER_UTILIZED_UNDRAINABLE
                 # logger.info('Undrainable pods: {}'.format(
