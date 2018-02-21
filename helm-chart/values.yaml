@@ -1,5 +1,5 @@
 image:
-  repository: wbuchwalter/kubernetes-acs-engine-autoscaler
+  repository: grawcho/kubernetes-acs-engine-autoscaler
   tag: latest
   pullPolicy: IfNotPresent
 rbac:
@@ -14,6 +14,7 @@ acsenginecluster:
   kubeconfigprivatekey: 
   clientprivatekey: 
   caprivatekey:
+  etcdpeerprivatekey0:
   ## Etcd private keys are needed for acs-engine >= 0.12.0 
   #etcdclientprivateKey: 
   #etcdserverprivateKey: 
