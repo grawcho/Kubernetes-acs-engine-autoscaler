@@ -98,6 +98,7 @@ class Scaler(object):
         #     state = ClusterNodeState.SPARE_AGENT
         elif age <= self.idle_threshold and not node.unschedulable:
             state = ClusterNodeState.GRACE_PERIOD
+            logger.info('node %s age is :%s and idle threshold set to :%s',node,age,self.idle_threshold)
         elif under_utilized and (busy_list or not node.unschedulable):
             if drainable:
                 if node.unschedulable:
