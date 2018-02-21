@@ -54,7 +54,7 @@ DEBUG_LOGGING_MAP = {
 def main(resource_group, acs_deployment, sleep, kubeconfig,
          service_principal_app_id, service_principal_secret, subscription_id, 
          kubeconfig_private_key, client_private_key, ca_private_key,
-         etcd_client_private_key, etcd_server_private_key, etcd_peer_private_key_0
+         etcd_client_private_key, etcd_server_private_key, etcd_peer_private_key_0,
          service_principal_tenant_id, spare_agents, idle_threshold,
          no_scale, over_provision, no_maintenance, ignore_pools, slack_hook,
          dry_run, verbose, debug):
