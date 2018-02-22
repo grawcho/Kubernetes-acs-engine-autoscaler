@@ -31,3 +31,5 @@ acsenginecluster:
   #idlethreshold:
   ## Optional parameter denominating the number of extra agents to create when scaling out
   #overprovision:
+  ## Optional parameter to set a slack web hok to send scaling notifications to
+  #slackhook:

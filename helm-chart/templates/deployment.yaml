@@ -102,6 +102,10 @@ spec:
             - --over-provision 
             - {{ .Values.acsenginecluster.overprovision | quote }}
             {{- end }}
+            {{- if .Values.acsenginecluster.slackhook }}
+            - --slack-hook 
+            - {{ .Values.acsenginecluster.slackhook | quote }}
+            {{- end }}
             - -vvv
         imagePullPolicy: {{ .Values.image.pullPolicy }}
       restartPolicy: Always
