@@ -91,6 +91,10 @@ class Notifier(object):
         if self.inst_key:
             try:
                 tc = TelemetryClient(self.inst_key)
+                tc.context.application.id = 'autoscaler'
+                tc.context.application.ver = '0.3.0'              
+                tc.context.device.id = 'k8s'
+                tc.context.user.id = 'autoscaler-serivce-account'
                 tc.track_event("Scale Out", { "capacity": units_actual }, { "newCapacity": units_requested })
                 logger.debug('APP INSIGHTS: sent scale out event')
                 tc.flush()
@@ -173,6 +177,10 @@ class Notifier(object):
         if self.inst_key:
             try:
                 tc = TelemetryClient(self.inst_key)
+                tc.context.application.id = 'autoscaler'
+                tc.context.application.ver = '0.3.0'              
+                tc.context.device.id = 'k8s'
+                tc.context.user.id = 'autoscaler-serivce-account'
                 tc.track_event("Drained Node", { "node": node }, { "effectedPods": pods_string })
                 logger.debug('APP INSIGHTS: sent scale in event')
                 tc.flush()
