@@ -90,14 +90,7 @@ class Notifier(object):
         # try to post event to application insights
         if self.inst_key:
             try:
-                tc = TelemetryClient(self.inst_key)
-                tc.context.application.id = 'autoscaler'
-                tc.context.application.ver = '0.3.0'              
-                tc.context.device.id = 'k8s'
-                tc.context.user.id = 'autoscaler-serivce-account'
-                tc.track_event("Scale Out", { "capacity": units_actual }, { "newCapacity": units_requested })
-                logger.debug('APP INSIGHTS: sent scale out event')
-                tc.flush()
+                self.app_insights_track_event("Scale Out", { "capacity": units_actual }, { "newCapacity": units_requested }) 
             except e:
                 logger.critical('Failed to track event (app insights): %s', e)
         else: 
@@ -176,15 +169,19 @@ class Notifier(object):
         
         if self.inst_key:
             try:
-                tc = TelemetryClient(self.inst_key)
-                tc.context.application.id = 'autoscaler'
-                tc.context.application.ver = '0.3.0'              
-                tc.context.device.id = 'k8s'
-                tc.context.user.id = 'autoscaler-serivce-account'
-                tc.track_event("Drained Node", { "node": node }, { "effectedPods": pods_string })
-                logger.debug('APP INSIGHTS: sent scale in event')
-                tc.flush()
+                self.app_insights_track_event("Drained Node", { "node": node }, { "effectedPods": pods_string })
             except e:
                 logger.critical('Failed to track event (app insights): %s', e) 
+    
+    def app_insights_track_event(self, name, props=None, measurments=None):
+        if self.inst_key:
+            tc = TelemetryClient(self.inst_key)
+            tc.context.application.id = 'autoscaler'
+            tc.context.application.ver = '0.3.0'              
+            tc.context.device.id = 'k8s'
+            tc.context.user.id = 'autoscaler-serivce-account'
+            tc.track_event(name, props , measurments)
+            logger.debug('APP INSIGHTS: sent %s event', name)
+            tc.flush()
         else:
             logger.debug('APP_INSIGHTS not configured.')
