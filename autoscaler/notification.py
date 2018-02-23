@@ -93,6 +93,7 @@ class Notifier(object):
                 tc = TelemetryClient(self.inst_key)
                 tc.track_event("Scale Out", { "capacity": units_actual }, { "newCapacity": units_requested })
                 logger.debug('APP INSIGHTS: sent scale out event')
+                tc.flush()
             except e:
                 logger.critical('Failed to track event (app insights): %s', e)
         else: 
@@ -174,6 +175,7 @@ class Notifier(object):
                 tc = TelemetryClient(self.inst_key)
                 tc.track_event("Drained Node", { "node": node }, { "effectedPods": pods_string })
                 logger.debug('APP INSIGHTS: sent scale in event')
+                tc.flush()
             except e:
                 logger.critical('Failed to track event (app insights): %s', e) 
         else:
