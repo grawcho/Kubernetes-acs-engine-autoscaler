@@ -107,7 +107,7 @@ spec:
             - {{ .Values.acsenginecluster.slackhook | quote }}
             {{- end }}
             {{- if .Values.acsenginecluster.appinsightsinstrumentationkey }}
-            - --app-insighs-key 
+            - --app-insights-key 
             - {{ .Values.acsenginecluster.appinsightsinstrumentationkey | quote }}
             {{- end }}
             - -vvv

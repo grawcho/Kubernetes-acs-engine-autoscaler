@@ -43,7 +43,7 @@ DEBUG_LOGGING_MAP = {
 @click.option("--slack-hook", default=None, envvar='SLACK_HOOK',
               help='Slack webhook URL. If provided, post scaling messages '
                    'to Slack.')
-@click.option("--app-insighs-key", default=None, envvar='APP_INSIGHTS_KEY',
+@click.option("--app-insights-key", default=None, envvar='APP_INSIGHTS_KEY', 
               help='Application Insights instrumentation key. If provided, post scaling events '
                    'to Application Insights.')                   
 @click.option("--dry-run", is_flag=True)

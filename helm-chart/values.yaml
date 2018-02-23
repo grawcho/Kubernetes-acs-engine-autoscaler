@@ -3,7 +3,7 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 rbac:
-  install: false
+  install: true
   apiVersion: v1beta1
 acsenginecluster:
   resourcegroup: 
@@ -13,25 +13,24 @@ acsenginecluster:
   subscriptionid: 
   kubeconfigprivatekey: 
   clientprivatekey: 
-  caprivatekey:
+  caprivatekey: 
   ## Etcd private keys are needed for acs-engine >= 0.12.0 
-  #etcdpeerprivatekey0:
   #etcdclientprivateKey: 
   #etcdserverprivateKey: 
-
+  #etcdpeerprivatekey0: 
   ## Optional parameter for deployment name if not using default
   #acsdeployment:
   ## Optional parameter for sleep time between scaling loops (default: 60)
   #sleeptime:
   ## Optional parameter for pools to ignore scaling on
-  #ignorepools:
+  #ignorepools: 
   ## Optional parameter denominating number of nodes to spare in a pool after scaling
   #spareagents:
   ## Optional parameter denominating the maximum duration (in seconds) an agent can stay idle before being deleted
   #idlethreshold:
   ## Optional parameter denominating the number of extra agents to create when scaling out
   #overprovision:
-  ## Optional parameter to set a slack web hok to send scaling notifications to
-  #slackhook:
+  ## Optional parameter enabling slack notifations
+  #slackhook: 
   ## Optional parameter enabling application insights telemetry logging
-  #appinsightsinstrumentationkey:
+  #appinsightsinstrumentationkey: 
