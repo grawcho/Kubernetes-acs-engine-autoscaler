@@ -92,8 +92,11 @@ class Notifier(object):
             try:
                 tc = TelemetryClient(self.inst_key)
                 tc.track_event("Scale Out", { "capacity": units_actual }, { "newCapacity": units_requested })
+                logger.debug('APP INSIGHTS: sent scale out event')
             except e:
                 logger.critical('Failed to track event (app insights): %s', e)
+        else: 
+            logger.debug('APP_INSIGHTS not configured.')
 
     def notify_failed_to_scale(self, selectors_hash, pods):
         struct_log('failed to scale', pods,
@@ -170,5 +173,8 @@ class Notifier(object):
             try:
                 tc = TelemetryClient(self.inst_key)
                 tc.track_event("Drained Node", { "node": node }, { "effectedPods": pods_string })
+                logger.debug('APP INSIGHTS: sent scale in event')
             except e:
                 logger.critical('Failed to track event (app insights): %s', e) 
+        else:
+            logger.debug('APP_INSIGHTS not configured.')
