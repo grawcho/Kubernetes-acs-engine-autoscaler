@@ -43,6 +43,9 @@ DEBUG_LOGGING_MAP = {
 @click.option("--slack-hook", default=None, envvar='SLACK_HOOK',
               help='Slack webhook URL. If provided, post scaling messages '
                    'to Slack.')
+@click.option("--app-insighs-key", default=None, envvar='APP_INSIGHTS_KEY',
+              help='Application Insights instrumentation key. If provided, post scaling events '
+                   'to Application Insights.')                   
 @click.option("--dry-run", is_flag=True)
 @click.option('--verbose', '-v',
               help="Sets the debug noise level, specify multiple times "
@@ -56,7 +59,7 @@ def main(resource_group, acs_deployment, sleep, kubeconfig,
          kubeconfig_private_key, client_private_key, ca_private_key,
          etcd_client_private_key, etcd_server_private_key, etcd_peer_private_key_0,
          service_principal_tenant_id, spare_agents, idle_threshold,
-         no_scale, over_provision, no_maintenance, ignore_pools, slack_hook,
+         no_scale, over_provision, no_maintenance, ignore_pools, slack_hook, app_insights_key,
          dry_run, verbose, debug):
     logger_handler = logging.StreamHandler(sys.stderr)
     logger_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
@@ -81,8 +84,8 @@ def main(resource_group, acs_deployment, sleep, kubeconfig,
     
     
     notifier = None
-    if slack_hook:
-        notifier = Notifier(slack_hook)
+    if (slack_hook or app_insights_key):
+        notifier = Notifier(slack_hook, app_insights_key)
 
     instance_init_time = 600
     

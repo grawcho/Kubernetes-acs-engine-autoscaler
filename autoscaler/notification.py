@@ -6,6 +6,7 @@ import operator
 from cachetools import TTLCache, cachedmethod
 import json_log_formatter
 import requests
+from applicationinsights import TelemetryClient
 
 logger = logging.getLogger(__name__)
 
@@ -55,8 +56,9 @@ def struct_log(message, pods, extra=None):
 class Notifier(object):
     MESSAGE_URL = 'https://slack.com/api/chat.postMessage'
 
-    def __init__(self, hook=None):
+    def __init__(self, hook=None,inst_key=None):
         self.hook = hook
+        self.inst_key = inst_key
 
         self.cache = TTLCache(maxsize=128, ttl=60*30)
 
@@ -84,6 +86,14 @@ class Notifier(object):
             logger.debug('SLACK: %s', resp.text)
         except requests.exceptions.ConnectionError as e:
             logger.critical('Failed to SLACK: %s', e)
+        
+        # try to post event to application insights
+        if self.inst_key:
+            try:
+                tc = TelemetryClient(self.inst_key)
+                tc.track_event("Scale Out", { "capacity": units_actual }, { "newCapacity": units_requested })
+            except e:
+                logger.critical('Failed to track event (app insights): %s', e)
 
     def notify_failed_to_scale(self, selectors_hash, pods):
         struct_log('failed to scale', pods,
@@ -155,3 +165,10 @@ class Notifier(object):
             logger.debug('SLACK: %s', resp.text)
         except requests.exceptions.ConnectionError as e:
             logger.critical('Failed to SLACK: %s', e)
+        
+        if self.inst_key:
+            try:
+                tc = TelemetryClient(self.inst_key)
+                tc.track_event("Drained Node", { "node": node }, { "effectedPods": pods_string })
+            except e:
+                logger.critical('Failed to track event (app insights): %s', e) 

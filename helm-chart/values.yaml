@@ -33,3 +33,5 @@ acsenginecluster:
   #overprovision:
   ## Optional parameter to set a slack web hok to send scaling notifications to
   #slackhook:
+  ## Optional parameter enabling application insights telemetry logging
+  #appinsightsinstrumentationkey:

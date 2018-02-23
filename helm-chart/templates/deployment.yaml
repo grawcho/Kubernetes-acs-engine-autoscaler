@@ -106,6 +106,10 @@ spec:
             - --slack-hook 
             - {{ .Values.acsenginecluster.slackhook | quote }}
             {{- end }}
+            {{- if .Values.acsenginecluster.appinsightsinstrumentationkey }}
+            - --slack-hook 
+            - {{ .Values.acsenginecluster.appinsightsinstrumentationkey | quote }}
+            {{- end }}
             - -vvv
         imagePullPolicy: {{ .Values.image.pullPolicy }}
       restartPolicy: Always
