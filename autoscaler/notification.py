@@ -169,7 +169,7 @@ class Notifier(object):
         
         if self.inst_key:
             try:
-                self.app_insights_track_event("Drained Node", { "node": node },{"podsCount":len(pods)})
+                self.app_insights_track_event("Drained Node", { "node": node.name },{"podsCount":len(pods)})
             except e:
                 logger.critical('Failed to track event (app insights): %s', e) 
     
