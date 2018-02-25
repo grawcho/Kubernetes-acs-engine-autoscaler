@@ -90,7 +90,7 @@ class Notifier(object):
         # try to post event to application insights
         if self.inst_key:
             try:
-                self.app_insights_track_event("Scale Out", {"pods": pods_string}, { "pods":pods, "oldCapacity": units_actual, "newCapacity": units_requested }) 
+                self.app_insights_track_event("Scale Out", {"oldCapacity": units_actual}, { "newCapacity": units_requested }) 
             except e:
                 logger.critical('Failed to track event (app insights): %s', e)
         else: 
@@ -169,7 +169,7 @@ class Notifier(object):
         
         if self.inst_key:
             try:
-                self.app_insights_track_event("Drained Node", { "node": node, "effectedPods": pods_string },{"podsCount":len(pods)})
+                self.app_insights_track_event("Drained Node", { "node": node },{"podsCount":len(pods)})
             except e:
                 logger.critical('Failed to track event (app insights): %s', e) 
     
