@@ -176,6 +176,7 @@ class Notifier(object):
     def app_insights_track_event(self, name, props=None, measurments=None):
         if self.inst_key:
             tc = TelemetryClient(self.inst_key)
+            tc.context.instrumentation_key = self.inst_key
             tc.context.application.id = 'autoscaler'
             tc.context.application.ver = '0.3.0'              
             tc.context.device.id = 'k8s'
