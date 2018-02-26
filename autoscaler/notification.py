@@ -90,7 +90,7 @@ class Notifier(object):
         # try to post event to application insights
         if self.inst_key:
             try:
-                self.app_insights_track_event("Scale Out", {"capacity": units_actual}, { "newCapacity": int(units_requested) }) 
+                self.app_insights_track_event("Scale Out", {"capacity": units_actual}, { "newCapacity": units_requested }) 
             except e:
                 logger.critical('Failed to track event (app insights): %s', e)
         else: 
