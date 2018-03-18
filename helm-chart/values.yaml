@@ -1,7 +1,7 @@
 image:
   repository: grawcho/kubernetes-acs-engine-autoscaler
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 rbac:
   install: true
   apiVersion: v1beta1
@@ -11,13 +11,9 @@ acsenginecluster:
   azurespsecret: 
   azuresptenantid: 
   subscriptionid: 
-  kubeconfigprivatekey: 
   clientprivatekey: 
-  caprivatekey: 
-  ## Etcd private keys are needed for acs-engine >= 0.12.0 
-  #etcdclientprivateKey: 
-  #etcdserverprivateKey: 
-  #etcdpeerprivatekey0: 
+  caprivatekey:  
+
   ## Optional parameter for deployment name if not using default
   #acsdeployment:
   ## Optional parameter for sleep time between scaling loops (default: 60)
