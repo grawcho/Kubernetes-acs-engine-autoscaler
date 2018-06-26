@@ -104,7 +104,7 @@ class EngineScaler(Scaler):
                 self.arm_parameters[pool.name +
                                     'Count'] = {'value': new_pool_sizes[pool.name]}
                 self.arm_parameters[pool.name +
-                                    'Offset'] = {'value': pool.max_size}
+                                    'Offset'] = {'value': pool.actual_capacity}
 
         template = prepare_template_for_scale_out(
             self.arm_template, self.agent_pools, new_pool_sizes)
