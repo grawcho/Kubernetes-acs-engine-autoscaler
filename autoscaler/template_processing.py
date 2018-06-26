@@ -157,7 +157,7 @@ def delete_unchanged_pools(template, unchanged_pools):
         "[concat(variables('storageAccountPrefixes')[mod(add(copyIndex(),variables('{}StorageAccountOffset')),variables('storageAccountPrefixesCount'))],variables('storageAccountPrefixes')[div(add(copyIndex(),variables('{}StorageAccountOffset')),variables('storageAccountPrefixesCount'))],variables('{}AccountName'))]",
         "[variables('{}AvailabilitySet')]",
         "[concat(variables('{}VMNamePrefix'), copyIndex(variables('{}Offset')))]",
-        "[concat(variables('{}VMNamePrefix'), copyIndex(variables('{}Offset')),'/cse', copyIndex(variables('{}Offset')))]"
+        "[concat(variables('{}VMNamePrefix'), copyIndex(variables('{}Offset')),'/cse', '-agent-' ,copyIndex(variables('{}Offset')))]"
     ]
 
     resources_names = {}
