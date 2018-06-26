@@ -47,7 +47,7 @@ def unroll_vm_extension(template, pool, new_pool_size):
     by multiple singular ones
     """
     resources = template['resources']
-    ext_resource_name = "[concat(variables('{}VMNamePrefix'), copyIndex(variables('{}Offset')),'/cse', copyIndex(variables('{}Offset')))]".format(
+    ext_resource_name = "[concat(variables('{}VMNamePrefix'), copyIndex(variables('{}Offset')),'/cse', '-agent-', copyIndex(variables('{}Offset')))]".format(
         pool.name, pool.name, pool.name)
     ext_template = None
 
@@ -66,7 +66,7 @@ def unroll_vm_extension(template, pool, new_pool_size):
         node_ext_template = deepcopy(ext_template)
         # remove the copy function
         node_ext_template.pop('copy')
-        node_ext_template['name'] = "[concat(variables('{}VMNamePrefix'), {},'/cse', {})]".format(
+        node_ext_template['name'] = "[concat(variables('{}VMNamePrefix'), {},'/cse', '-agent-', {})]".format(
             pool.name, index, index)
 
         # replace all occurence of copyIndex(variables('<pool_name>Offset')) by
