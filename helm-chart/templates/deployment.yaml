@@ -17,7 +17,7 @@ spec:
 {{- if .Values.rbac.install }}
       serviceAccountName: acs-engine-autoscaler
 {{- end }}
-      nodeSelector: 
+      nodeSelector:
         beta.kubernetes.io/os: linux
       containers:
       - name: {{ template "fullname" . }}
@@ -53,6 +53,11 @@ spec:
             secretKeyRef:
               name: {{ template "fullname" . }}
               key: ca-private-key
+        - name: ETCD_PEER_PRIVATE_KEY_0
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: etcd-peer-private-key-0
         command:
             - python
             - main.py
@@ -67,27 +72,27 @@ spec:
             - {{ .Values.acsenginecluster.sleeptime | quote }}
             {{- end }}
             {{- if .Values.acsenginecluster.ignorepools }}
-            - --ignore-pools 
+            - --ignore-pools
             - {{ .Values.acsenginecluster.ignorepools }}
             {{- end }}
             {{- if .Values.acsenginecluster.spareagents }}
-            - --spare-agents 
+            - --spare-agents
             - {{ .Values.acsenginecluster.spareagents | quote }}
             {{- end }}
             {{- if .Values.acsenginecluster.idlethreshold }}
-            - --idle-threshold 
+            - --idle-threshold
             - {{ .Values.acsenginecluster.idlethreshold | quote }}
             {{- end }}
             {{- if .Values.acsenginecluster.overprovision }}
-            - --over-provision 
+            - --over-provision
             - {{ .Values.acsenginecluster.overprovision | quote }}
             {{- end }}
             {{- if .Values.acsenginecluster.slackhook }}
-            - --slack-hook 
+            - --slack-hook
             - {{ .Values.acsenginecluster.slackhook | quote }}
             {{- end }}
             {{- if .Values.acsenginecluster.appinsightsinstrumentationkey }}
-            - --app-insights-key 
+            - --app-insights-key
             - {{ .Values.acsenginecluster.appinsightsinstrumentationkey | quote }}
             {{- end }}
             - -vvv

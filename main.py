@@ -71,8 +71,8 @@ def main(resource_group, acs_deployment, sleep, kubeconfig,
     if not ca_private_key:
         logger.error('Missing ca_private_key. Provide it through --ca-private-key or CA_PRIVATE_KEY environment variable')
     
-    if not etcd_peer_private_key_0:
-        logger.error('Missing etcd_peer_private_key_0. Provide it through --etcd_peer_private_key_0 or ETCD_PEER_PRIVATE_KEY_0 environment variable')
+    ##if not etcd_peer_private_key_0:
+    ##    logger.error('Missing etcd_peer_private_key_0. Provide it through --etcd_peer_private_key_0 or ETCD_PEER_PRIVATE_KEY_0 environment variable')
     
     
     notifier = None
