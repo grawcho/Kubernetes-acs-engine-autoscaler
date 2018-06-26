@@ -206,7 +206,7 @@ def delete_common_resources(template):
         "[concat(variables('masterLbName'), '/', 'SSH-', variables('masterVMNamePrefix'), copyIndex(variables('masterOffset')))]": True,
         "[concat(variables('masterVMNamePrefix'), 'nic-', copyIndex(variables('masterOffset')))]": True,
         "[concat(variables('masterVMNamePrefix'), copyIndex(variables('masterOffset')))]": True,
-        "[concat(variables('masterVMNamePrefix'), copyIndex(variables('masterOffset')),'/cse', copyIndex(variables('masterOffset')))]": True
+        "[concat(variables('masterVMNamePrefix'), copyIndex(variables('masterOffset')),'/cse', '-master-', copyIndex(variables('masterOffset')))]": True
     }
     template = delete_resources_by_name(template, resources_names)
     return template
@@ -256,7 +256,7 @@ def delete_master_vm_extension(template):
     resources = template['resources']
     vm_ext_index = -1
     for i in range(len(resources)):
-        if resources[i]['name'] == "[concat(variables('masterVMNamePrefix'), copyIndex(variables('masterOffset')),'/cse', copyIndex(variables('masterOffset')))]":
+        if resources[i]['name'] == "[concat(variables('masterVMNamePrefix'), copyIndex(variables('masterOffset')),'/cse', '-master-', copyIndex(variables('masterOffset')))]":
             vm_ext_index = i
             break
     resources.pop(i)
