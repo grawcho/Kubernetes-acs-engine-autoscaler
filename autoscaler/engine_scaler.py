@@ -61,6 +61,8 @@ class EngineScaler(Scaler):
             for pool in self.agent_pools:
                 pool_sizes[pool.name] = pool.actual_capacity
             pool_sizes[pool.name] = pool.actual_capacity - 1
+            logger.info("new capacity for pool '{}' is '{}' ".format(
+                    pool.name,pool_sizes[pool.name]))
             self.deployments.requested_pool_sizes = pool_sizes
 
         delete_resources_for_node(node, self.resource_group_name)
