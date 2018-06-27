@@ -64,6 +64,7 @@ class EngineScaler(Scaler):
             logger.info("new capacity for pool '{}' is '{}' ".format(
                     pool.name,pool_sizes[pool.name]))
             self.deployments.requested_pool_sizes = pool_sizes
+            
 
         delete_resources_for_node(node, self.resource_group_name)
 
@@ -105,8 +106,6 @@ class EngineScaler(Scaler):
                 # resource in the template instead of using Count func
                 self.arm_parameters[pool.name +
                                     'Count'] = {'value': new_pool_sizes[pool.name]}
-                self.arm_parameters[pool.name +
-                                    'Offset'] = {'value': pool.actual_capacity}
 
         template = prepare_template_for_scale_out(
             self.arm_template, self.agent_pools, new_pool_sizes)
