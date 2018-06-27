@@ -6,7 +6,7 @@ rbac:
   install: true
   apiVersion: v1beta1
 acsenginecluster:
-  resourcegroup: <RG-Name>
+  resourcegroup: <RG-Name-in-Caps>
   azurespappid: <SP-ID>
   azurespsecret: <SP-Secret>
   azuresptenantid: <Azure-tennent-ID>

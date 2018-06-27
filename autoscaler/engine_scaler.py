@@ -188,7 +188,11 @@ class EngineScaler(Scaler):
         for item in delete_queue:
             t = Thread(target=self.delete_node,
                        args=(item['pool'], item['node'], lock, ))
+            logger.info("deleting node '{}' from pool '{}' ".format(
+                    item['node'],item['pool']))
             threads.append(t)
             t.start()
         for t in threads:
             t.join()
+            logger.info("node '{}'deleted from pool '{}' ".format(
+                    item['node'],item['pool']))
