@@ -51,7 +51,7 @@ class Scaler(object):
         self.agent_pools = None
         self.scalable_pools = None
         self.ignored_pool_names = {}
-    
+
     def get_agent_pools(self, nodes):
         raise NotImplementedError()
 
@@ -73,18 +73,18 @@ class Scaler(object):
         # we consider a node to be busy if it's running any non-DaemonSet pods
         # TODO: we can be a bit more aggressive in killing pods that are
         # replicated
-        busy_list = [p for p in node_pods if (not p.is_mirrored() and 'kube-proxy' not in p.name)]
+        busy_list = [p for p in node_pods if (not p.is_mirrored() and ('kube-proxy' not in p.name or 'heapster' not in p.name)) ]
 
         age = (datetime.datetime.now(node.creation_time.tzinfo) - node.creation_time).seconds
 
         # TODO: Fix this kube-proxy issue, see
         # https://github.com/openai/kubernetes-ec2-autoscaler/issues/23
         undrainable_list = [p for p in node_pods if not (
-            p.is_drainable() or 'kube-proxy' in p.name)]
+            p.is_drainable() or 'kube-proxy' in p.name or 'heapster' in p.name)]
 
         utilization = sum((p.resources for p in busy_list), KubeResource())
         under_utilized = (self.UTIL_THRESHOLD *
-                          node.capacity - utilization).possible 
+                          node.capacity - utilization).possible
         drainable = not undrainable_list
 
         if busy_list and not under_utilized:
@@ -164,7 +164,7 @@ class Scaler(object):
             units_requested = units_needed - unavailable_units
 
             logger.debug("units_needed: %s", units_needed)
-            
+
             logger.debug("units_requested: %s", units_requested)
 
             new_capacity = pool.actual_capacity + units_requested
