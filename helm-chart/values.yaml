@@ -6,20 +6,23 @@ rbac:
   install: true
   apiVersion: v1beta1
 acsenginecluster:
-  resourcegroup: 
-  azurespappid: 
-  azurespsecret: 
-  azuresptenantid: 
-  subscriptionid: 
-  clientprivatekey: 
-  caprivatekey:  
+  resourcegroup: <RG-Name>
+  azurespappid: <SP-ID>
+  azurespsecret: <SP-Secret>
+  azuresptenantid: <Azure-tennent-ID>
+  subscriptionid: <Azure-Subscription-ID>
+  clientprivatekey: <Client-private-Key>
+  caprivatekey: <CA-private-Key>
+  etcdclientprivateKey: <etcd-client-private-Key>
+  etcdserverprivateKey: <etcd-server-private-Key>
+  etcdpeerprivatekey0: <etcd-peer-private-Key-0>
 
   ## Optional parameter for deployment name if not using default
   #acsdeployment:
   ## Optional parameter for sleep time between scaling loops (default: 60)
   #sleeptime:
   ## Optional parameter for pools to ignore scaling on
-  #ignorepools: 
+  #ignorepools:
   ## Optional parameter denominating number of nodes to spare in a pool after scaling
   #spareagents:
   ## Optional parameter denominating the maximum duration (in seconds) an agent can stay idle before being deleted
@@ -27,6 +30,7 @@ acsenginecluster:
   ## Optional parameter denominating the number of extra agents to create when scaling out
   #overprovision:
   ## Optional parameter enabling slack notifations
-  #slackhook: 
-  ## Optional parameter enabling application insights telemetry logging
-  #appinsightsinstrumentationkey: 
+  appinsightsinstrumentationkey: <app-insights-instrumentation-Key>
+  ## Optional parameter enabling slack notifations
+  slackhook: <slack-hook>
+
